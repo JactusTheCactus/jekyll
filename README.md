@@ -13,4 +13,6 @@ The end-goal is to add many monsters to the game, along with drops that allow th
 		- Flight
 		- Lifesteal
 - [ ] Werewolf
-	- Lycan Blood
+	- Lycan Blood (Powers only work at night)
+		- Strength
+		- Resistance
