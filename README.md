@@ -5,7 +5,7 @@ The end-goal is to add many monsters to the game, along with drops that the play
 - [ ] Monsters
 - [x] Items that give the powers of monsters
 ## Monsters
-- [ ] Dhampir (Variation of `Enderman`)
+- [ ] Dhampir (Based off of `Enderman`)
 	- [x] `Vampiric Blood`
 		- Strength
 		- Speed
