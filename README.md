@@ -15,6 +15,7 @@ The end-goal is to add many monsters to the game, along with drops that the play
 	- [ ] `Lycan Blood` (Powers only work at night)
 		- Strength
 		- Resistance
+		- Night-Vision
 ## Use
 Currently, as there are no mobs to drop these items, they are given at the start. If they aren't, `/reload` will clear your inventory / potion effects & give the items
 ***
