@@ -11,7 +11,6 @@ DIRS=(
 	logs
 )
 DOCS=src/main/docs
-ROOT="$HOME/.minecraft/saves/Project_ Jekyll"
 for i in "${DIRS[@]}"; do
 	rm -rf "$i" || :
 	mkdir -p "$i"
@@ -36,6 +35,7 @@ find dist \
 	-name "*.yml" \
 	-exec rm {} \;
 if flag local; then
+	ROOT="$HOME/.minecraft/saves/Project_ Jekyll"
 	find "$ROOT/datapacks" -type f -exec rm {} \;
 	cp -r dist/* "$ROOT/datapacks/"
 fi
