@@ -1,4 +1,4 @@
-Project: **`Jekyll`** *<dʒekəl>*
+Project: **`Jekyll`** *<dʒékəl>*
 ===============
 A datapack for `Minecraft: Java Edition 1.21.10`.
 
