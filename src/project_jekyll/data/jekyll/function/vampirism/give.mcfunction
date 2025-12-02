@@ -1,5 +1,5 @@
 give @s minecraft:dragon_breath[
-	custom_name=Vampirism,
+	custom_name="Vampiric Blood",
 	lore=[
 		"Heal upon dealing damage",
 		"Drink the blood of your enemies!"
