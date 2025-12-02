@@ -7,7 +7,7 @@ The end-goal is to add many monsters to the game, along with drops that allow th
 - [x] Items that give the powers of monsters
 ## Monsters
 - [ ] Vampire
-	- [ ] Vampiric Blood
+	- [x] Vampiric Blood
 		- Strength
 		- Speed
 		- Flight
