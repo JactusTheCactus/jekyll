@@ -5,7 +5,7 @@ The end-goal is to add many monsters to the game, along with drops that allow th
 - [ ] Monsters
 - [x] Items that give the powers of monsters
 ## Monsters
-- [ ] Vampire
+- [ ] Vampire (Variation of `Enderman`)
 	- [x] `Vampiric Blood`
 		- Strength
 		- Speed
