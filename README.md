@@ -7,9 +7,10 @@ The end-goal is to add many monsters to the game, along with drops that allow th
 - [x] Items that give the powers of monsters
 ## Monsters
 - [x] Vampire
-	- Bottle of Vampiric Blood
+	- Vampiric Blood
 		- Strength
 		- Speed
 		- Flight
 		- Lifesteal
 - [ ] Werewolf
+	- Lycan Blood
