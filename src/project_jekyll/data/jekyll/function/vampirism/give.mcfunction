@@ -4,6 +4,6 @@ give @s minecraft:dragon_breath[
 		"Heal upon dealing damage",
 		"Drink the blood of your enemies!"
 	],
-	custom_data={monster:vampire},
+	custom_data={monster:dhampir},
 	consumable={consume_seconds:0},
 ]
