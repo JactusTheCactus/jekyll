@@ -7,5 +7,5 @@ components:
     - Drink the blood of your enemies
   custom_data:
     monster: dhampir
-    consumable:
-      consume_seconds: 0
+  consumable:
+    consume_seconds: 0
