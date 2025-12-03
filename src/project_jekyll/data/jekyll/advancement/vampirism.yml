@@ -13,7 +13,7 @@ criteria:
         # items: 'minecraft:potion'
         components:
           'minecraft:custom_data':
-            monster: vampire
+            monster: dhampir
 requirements:
   - - vampirism
 rewards:
