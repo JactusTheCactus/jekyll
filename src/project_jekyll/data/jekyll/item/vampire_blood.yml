@@ -3,8 +3,8 @@ lore:
   - Heal upon dealing damage
   - Drink the blood of your enemies
 custom_data:
-	monster: dhampir
-	consumable:
-		consume_seconds: 0
+  monster: dhampir
+  consumable:
+    consume_seconds: 0
 icon: minecraft:dragon_breath
 max_stack_size: 1
