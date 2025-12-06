@@ -19,11 +19,11 @@
   item: Lycan Blood
   base: Vindicator
   abilities:
-    - [Strength]
-    - [Resistance]
-    - [Jump Boost]
+    - [Strength, true]
+    - [Resistance, true]
+    - [Jump Boost, true]
 - <<: *monster
   name: Demon
   item: Demonic Blood
   abilities:
-    - [Fire Resistance]
+    - [Fire Resistance, true]
