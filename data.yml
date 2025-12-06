@@ -27,3 +27,8 @@
   item: Demonic Blood
   abilities:
     - [Fire Resistance, true]
+- <<: *monster
+  name: Mermaid
+  item: Mermaid Blood
+  abilities:
+    - [Water-Breathing]
