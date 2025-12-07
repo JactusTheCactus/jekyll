@@ -26,12 +26,17 @@ for f in scripts/*; do
 	f="${f%.sh}"
 	s=./scripts/$f.sh
 	chmod +x $s
-	eval "$f=$s"
+	eval "$(cat << EOF
+$f() {
+	"$s" "$@"
+}
+EOF
+)"
 done
 for i in src/*; do
 	cp -r $i dist
 done
-$pre
+pre
 find src -name "*.yml" -exec $ymlToJson {} \;
 find dist -name "*.yml" -delete
 copyTexture() {
@@ -68,5 +73,5 @@ for i in data resource; do
 		tree "$NAME" -o "../../logs/trees/$i.tree"
 	)
 done
-$readme
+readme
 find logs -empty -delete
