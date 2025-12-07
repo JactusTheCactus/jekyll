@@ -1,23 +1,23 @@
 model:
   type: select
   property: minecraft:custom_model_data
-  cases:
-    - when: demon
-      model:
-        type: model
-        model: item/blaze_spawn_egg
-    - when: dhampir
-      model:
-        type: model
-        model: item/bat_spawn_egg
-    - when: mermaid
-      model:
-        type: model
-        model: item/dolphin_spawn_egg
-    - when: wirwulf
-      model:
-        type: model
-        model: item/wolf_spawn_egg
-  fallback:
+  fallback: &case
     type: model
     model: item/dragon_breath
+  cases:
+    - <<: *case
+      when: demon
+      model:
+        model: item/blaze_spawn_egg
+    - <<: *case
+      when: dhampir
+      model:
+        model: item/bat_spawn_egg
+    - <<: *case
+      when: mermaid
+      model:
+        model: item/dolphin_spawn_egg
+    - <<: *case
+      when: wirwulf
+      model:
+        model: item/wolf_spawn_egg
