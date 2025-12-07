@@ -13,12 +13,11 @@ The end-goal is to add many monsters to The game, along with drops that the play
 ## Monsters
 EOF
 DATA="$(yq -p yaml -o json data.yml | jq "del(.[0])")"
-echo "$DATA" | jq -c '.[]' | while read -r i; do
+echo "$DATA" | jq -c ".[]" | while read -r i; do
 	void() {
-		else="${2:-null}"
 		in="$(echo "$i" | jq -r .$1)"
 		if [[ "$in" = "null" ]]; then
-			out="$else"
+			out="${2:-null}"
 		else
 			out="$in"
 		fi
@@ -26,7 +25,7 @@ echo "$DATA" | jq -c '.[]' | while read -r i; do
 	}
 	name="$(echo "$i" | jq -r ".name")"
 	mob="$(echo "$i" | jq -r ".mob")"
-	case $mob in
+	case "$mob" in
 		0)mob="x";;
 		*)mob=" ";;
 	esac
@@ -35,11 +34,11 @@ echo "$DATA" | jq -c '.[]' | while read -r i; do
 	if [[ "$base" != "null" ]]; then
 		title+=" (Based off of \`$base\`)"
 	fi
-	echo $title
+	echo "$title"
 	blood="$(void blood $name)"
 	echo -e "\t- \`$blood Blood\`"
 	abilities="$(echo "$i" | jq -r ".abilities")"
-	echo "$abilities" | jq -c '.[]' | while read -r ability; do
+	echo "$abilities" | jq -c ".[]" | while read -r ability; do
 		echo -e "\t\t- $ability"
 	done
 done
