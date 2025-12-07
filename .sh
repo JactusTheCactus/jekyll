@@ -35,15 +35,16 @@ done
 "${script[pre]}"
 find src -name "*.yml" -exec "${script[ymlToJson]}" {} \;
 find dist -name "*.yml" -delete
-copyTexture() {
-	cp \
-		"$HOME/.minecraft/versions/1.21.10/1.21.10/assets/minecraft/textures/item/$1.png" \
-		"dist/resourcepacks/Project: Jekyll/assets/minecraft/textures/item/${2:-$1}.png"
-}
 if flag local; then
+	V="1.21.10"
 	MC="$HOME/.minecraft"
 	ROOT="$MC/saves/Project_ Jekyll"
-	VER="$MC/versions/1.21.10/1.21.10"
+	VER="$MC/versions/$V/$V"
+	copyTexture() {
+		cp \
+			"$VER/assets/minecraft/textures/item/$1.png" \
+			"dist/resourcepacks/$NAME/assets/minecraft/textures/item/${2:-$1}.png"
+	}
 	cp -r "$VER.jar" "$VER.zip"
 	unzip -o "$VER.zip" -d "$VER" > /dev/null
 	rm "$VER.zip"
