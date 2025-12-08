@@ -33,7 +33,7 @@ for i in src/*; do
 	cp -r "$i" dist
 done
 "${script[pre]}"
-find src -name "*.yml" -exec "${script[ymlToJson]}" {} \;
+find . -name "*.yml" -exec "${script[ymlToJson]}" {} \;
 find dist -name "*.yml" -delete
 if flag local; then
 	V="1.21.10"

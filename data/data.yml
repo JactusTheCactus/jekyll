@@ -1,6 +1,5 @@
 - - &monster
     name: !!str
-    mob:  !!bool false
     blood: !!str
     base: !!str
     abilities: !!seq []
