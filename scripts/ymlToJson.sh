@@ -7,6 +7,6 @@ i="${i%.yml}"
 if ! grep -qw "$i" .ymlignore; then
 	o="${1/src/dist}"
 	o="${o/yml/json}"
-	o="$(echo "$o" | perl -pe 's/(\.\w+)\.json/$1/g')"
+	o="$(printf '%s' "$o" | perl -pe 's/(\.\w+)\.json/$1/g')"
 	yq -p yaml -o json "$1" > "$o"
 fi
