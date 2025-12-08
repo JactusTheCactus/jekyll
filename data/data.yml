@@ -1,13 +1,6 @@
-- - &monster
-    name: !!str
-    blood: !!str
-    base: !!str
-    abilities: !!seq []
-    desc: !!seq []
-    effects: !!seq []
-- <<: *monster
-  name: Demon
+- name: Demon
   blood: Demonic
+  base: Zombified Piglin
   abilities:
     - Health Boost
     - Strength
@@ -20,8 +13,7 @@
     - [health_boost, 99]
     - [strength, 99]
     - [fire_resistance, 99]
-- <<: *monster
-  name: Dhampir
+- name: Dhampir
   blood: Vampiric
   base: Enderman
   abilities:
@@ -41,8 +33,7 @@
     - [jump_boost, 9]
     - [strength, 99]
     - [night_vision, 99]
-- <<: *monster
-  name: Mermaid
+- name: Mermaid
   base: Dolphin
   abilities:
     - Water-Breathing
@@ -50,8 +41,7 @@
   effects:
     - [water_breathing, 99]
     - [dolphins_grace, 99]
-- <<: *monster
-  name: Wirwulf
+- name: Wirwulf
   blood: Lycan
   base: Vindicator
   abilities:

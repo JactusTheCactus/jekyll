@@ -18,6 +18,7 @@ for i in "${DIRS[@]}"; do
 	rm -rf "$i" || :
 	mkdir -p "$i"
 done
+find . -name "*.json" -delete
 exec > "$LOG" 2>& 1
 alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
 alias tree="tree -F"

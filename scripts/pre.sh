@@ -3,13 +3,9 @@ set -euo pipefail
 shopt -s expand_aliases
 alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
 exec > "logs/pre.log" 2>& 1
-data="$(yq -p yaml -o json "data/data.yml" | jq "del(.[0])")"
-echo "$(
-	yq data/data.yml \
+yq data/data.yml \
 		-p yaml \
 		-o json \
-		| jq "del(.[0])"
-	)" \
 		| jq -c ".[]" \
 		| while read -r m
 do

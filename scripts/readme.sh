@@ -2,50 +2,79 @@
 set -euo pipefail
 shopt -s expand_aliases
 alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
-exec > README.md
-cat << EOF
-# Project: Jekyll
-\`Project: Jekyll\` is a datapack for \`Minecraft: Java Edition 1.21.10\`.
-The end-goal is to add many monsters to The game, along with drops that the player consumes to gain their abilities.
-## Features
-- Monsters
-- Items that give the powers of monsters
-## Monsters
-$(
-	echo "$(
-		yq data/data.yml \
-			-p yaml \
-			-o json \
-			| jq "del(.[0])"
-	)" \
-		| jq -c ".[]" \
-		| while read -r i
-	do
-		name="$(echo "$i" | jq -r ".name")"
-		echo -e "- $name$(
-			base="$(echo "$i" | jq -r .base)"
-			if ! [[ -z "$base" ]]; then
-				echo -e "\n\t- Based off of \`$base\`"
+exec > README.html
+exec 2> logs/readme.log
+el() {
+	e="${1:-hr}"
+	t="${@:2}"
+	tag="<$e>$t</$e>"
+	case "$e" in
+		hr)o="<$e>";;
+		html)o="<!DOCTYPE html>$tag";;
+		ul:li)o="$(el ul "$(el li "$t")")";;
+		*)o="$tag";;
+	esac
+	echo $o | perl -pe 's/\n//g'
+}
+void() {
+	if [[ -z "${2++}" ]]
+		then [[ "$1" != "null" ]] || return 1
+		else
+			if [[ "$1" != "null" ]]
+				then echo "$1"
+				else echo "$2"
 			fi
-		)\n\t- \`$(
-			b_="$(echo "$i" | jq -r ".blood")"
-			if [[ -z "$b_" ]]; then
+	fi
+}
+get() {
+	echo "$1" | jq -r ".$2"
+}
+name="Project: Jekyll"
+el html "$(
+	el body "$(
+		el h1 $name
+		el p $(
+			echo $(el q $name) is a datapack for $(el q Minecraft: Java Edition $(el code 1.21.10)).
+			echo The end-goal is to add many monsters to the game,
+			echo along with drops that the player consumes to gain their abilities.
+		)
+		el h2 Features
+		el ul $(
+			el li Monsters
+			el li Items that give the powers of monsters
+		)
+		el h2 "Monsters"
+		yq data/data.yml -p yaml -o json | jq -c ".[]" | while read -r i
+		do
+			name="$(get "$i" name)"
+			base="$(get "$i" base)"
+			blood="$(get "$i" blood)"
+			ab="$(get "$i" abilities[])"
+			el ul:li "$(
 				echo "$name"
-			else
-				echo "$b_"
-			fi
-		) Blood\`\n$(
-			ab="$(echo "$i" | jq -r ".abilities[]")"
-			echo "$ab" | while read -r a; do
-				echo -e "\t\t- $a"
-			done
-		)"
-	done
-)
-## Use
-Currently, as there are no mobs to drop these items, they are given at the start.
-If they aren't, \`/reload\` will clear your inventory / potion effects & give the items
-***
-## Notes
-The name, \`Project: Jekyll\`, comes from \`The Strange Case of Dr. Jekyll & Mr. Hyde\`
+				el ul "$(
+					if void "$base"
+						then el li "Based off of $(el code "$base")"
+					fi
+					el li "$(
+						el code "$(void "$blood" "$name") Blood"
+						el ul "$(echo "$ab" | while read -r a
+							do el li "$a"
+						done)"
+					)"
+				)"
+			)"
+		done
+		el h2 "Use"
+		el p "$(cat << EOF
+Currently, as there are no mobs to drop these items,
+they are given at the start.
+If they aren't, $(el code "/reload")
+will clear your inventory / potion effects
+& give the items
 EOF
+)"
+		el h2 "Notes"
+		el p "The name, $(el q "$name,") comes from $(el q "The Strange Case of Dr. Jekyll & Mr. Hyde")"
+	)"
+)"
