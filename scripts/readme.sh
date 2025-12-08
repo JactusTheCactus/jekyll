@@ -11,38 +11,42 @@ The end-goal is to add many monsters to The game, along with drops that the play
 - [ ] Monsters
 - [x] Items that give the powers of monsters
 ## Monsters
-EOF
-DATA="$(yq -p yaml -o json data.yml | jq "del(.[0])")"
-echo "$DATA" | jq -c ".[]" | while read -r i; do
-	void() {
-		in="$(echo "$i" | jq -r .$1)"
-		if [[ "$in" = "null" ]]; then
-			out="${2:-null}"
-		else
-			out="$in"
-		fi
-		echo "$out"
-	}
-	name="$(echo "$i" | jq -r ".name")"
-	mob="$(echo "$i" | jq -r ".mob")"
-	case "$mob" in
-		0)mob="x";;
-		*)mob=" ";;
-	esac
-	base="$(void base)"
-	title="- [$mob] $name"
-	if [[ "$base" != "null" ]]; then
-		title+=" (Based off of \`$base\`)"
-	fi
-	echo "$title"
-	blood="$(void blood $name)"
-	echo -e "\t- \`$blood Blood\`"
-	abilities="$(echo "$i" | jq -r ".abilities")"
-	echo "$abilities" | jq -c ".[]" | while read -r ability; do
-		echo -e "\t\t- $ability"
+$(
+	echo "$(
+		yq data.yml \
+			-p yaml \
+			-o json \
+			| jq "del(.[0])"
+	)" \
+		| jq -c ".[]" \
+		| while read -r i
+	do
+		name="$(echo "$i" | jq -r ".name")"
+		echo "- [$(
+			case "$(echo "$i" | jq -r ".mob")" in
+				true)echo "x";;
+				*)echo " ";;
+			esac
+		)] $name$(
+			base="$(echo "$i" | jq -r .base)"
+			if ! [[ -z "$base" ]]; then
+				echo " (Based off of \`$base\`)"
+			fi
+		)"
+		echo -e "\t- \`$(
+			b_="$(echo "$i" | jq -r ".blood")"
+			if [[ -z "$b_" ]]; then
+				echo "$name"
+			else
+				echo "$b_"
+			fi
+		) Blood\`"
+		ab="$(echo "$i" | jq -r ".abilities[]")"
+		echo "$ab" | while read -r a; do
+			echo -e "\t\t- $a"
+		done
 	done
-done
-cat << EOF
+)
 ## Use
 Currently, as there are no mobs to drop these items, they are given at the start.
 If they aren't, \`/reload\` will clear your inventory / potion effects & give the items

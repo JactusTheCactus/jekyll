@@ -1,11 +1,11 @@
 - - &monster
-    name:
-    mob: 1
-    blood:
-    base:
-    abilities: []
-    desc: []
-    effects: []
+    name: !!str
+    mob:  !!bool false
+    blood: !!str
+    base: !!str
+    abilities: !!seq []
+    desc: !!seq []
+    effects: !!seq []
 - <<: *monster
   name: Demon
   blood: Demonic
