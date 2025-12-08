@@ -37,10 +37,7 @@ get() {
 name="Project: Jekyll"
 el html:body $(
 	el h1 $name
-	el p $(
-		echo $(el q $name) is a datapack for $(el q Minecraft: Java Edition $(el code 1.21.10)).
-		echo The end-goal is to add many monsters to the game,
-		echo along with drops that the player consumes to gain their abilities.
+	el p $(el q $name) is a datapack for $(el q Minecraft: Java Edition $(el code 1.21.10)). The end-goal is to add many monsters to the game, along with drops that the player consumes to gain their abilities.
 	)
 	el h2 Features
 	el ul $(
