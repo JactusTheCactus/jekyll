@@ -2,7 +2,7 @@
 set -euo pipefail
 shopt -s expand_aliases
 alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
-exec > README.html
+exec > README.md
 exec 2> logs/readme.log
 el() {
 	e=${1:-hr}
