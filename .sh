@@ -22,24 +22,21 @@ find . -name "*.json" -delete
 exec > "$LOG" 2>& 1
 alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
 alias tree="tree -F"
-declare -A script
-for f in scripts/*; do
-	f="${f#scripts/}"
-	f="${f%.sh}"
-	s="./scripts/$f.sh"
-	chmod +x "$s"
-	script["$f"]="$s"
-done
+script() {
+	./scripts/$1.sh "${@:2}"
+}
 for i in src/*; do
 	cp -r "$i" dist
 done
-"${script[pre]}"
-find . -name "*.yml" -exec "${script[ymlToJson]}" {} \;
+script pre/give
+find . -name "*.yml" -print0 | while IFS= read -r -d '' f
+	do script ymlToJson "$f"
+done
 find dist -name "*.yml" -delete
 if flag local; then
-	V="1.21.10"
 	MC="$HOME/.minecraft"
 	ROOT="$MC/saves/Project_ Jekyll"
+	V="1.21.10"
 	VER="$MC/versions/$V/$V"
 	copyTexture() {
 		cp \
@@ -71,5 +68,5 @@ for i in data resource; do
 		tree "$NAME" -o "../../logs/trees/$i.tree"
 	)
 done
-"${script[readme]}"
+script readme
 find logs -empty -delete

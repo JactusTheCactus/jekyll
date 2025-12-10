@@ -5,19 +5,19 @@ model:
     type: model
     model: item/dragon_breath
   cases:
-    - <<: *case
-      when: demon
+    - when: demon
       model:
+        <<: *case
         model: item/blaze_spawn_egg
-    - <<: *case
-      when: dhampir
+    - when: dhampir
       model:
+        <<: *case
         model: item/bat_spawn_egg
-    - <<: *case
-      when: mermaid
+    - when: mermaid
       model:
+        <<: *case
         model: item/dolphin_spawn_egg
-    - <<: *case
-      when: wirwulf
+    - when: wirwulf
       model:
+        <<: *case
         model: item/wolf_spawn_egg
