@@ -46,7 +46,10 @@ cap() {
 	perl -pe 's|\b(\w)(\w*)\b|\u$1\L$2|g'
 }
 md() {
-	perl -pe 's/\s*(?:id|class)=".*?"\s*//g'
+	perl -pe '
+		s/\s*(?:id|class)=".*?"\s*//g;
+		s|<(span)>(.*?)</$1>|$2|g;
+	'
 }
 title="Project: Jekyll"
 body=$(
