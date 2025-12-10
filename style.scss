@@ -1,0 +1,30 @@
+body {
+	font: 20pt sans-serif;
+	margin: 1em;
+	q {
+		font-style: italic;
+		&.title {
+			font-weight: bold;
+		}
+	}
+	.monster {
+		.name {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+		.blood {
+			font-weight: bold;
+		}
+		.base {
+			font-style: italic;
+			.mob {
+				font-weight: bold;
+			}
+		}
+		.abilities {
+			.ability {
+				font-size: 1em;
+			}
+		}
+	}
+}
