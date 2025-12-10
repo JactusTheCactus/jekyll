@@ -18,7 +18,6 @@ void() {
 # 		| jq -c ".[]" \
 # 		| while read -r m
 # do
-# 	m="$(echo "$m" | jq --tab ".")"
 # 	t="dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(
 # 		t_="$(echo "$m" | jq -r ".name")"
 # 		echo "${t_,,}"
