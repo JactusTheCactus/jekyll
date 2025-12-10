@@ -1,10 +1,10 @@
-- name: Demon
-  blood: Demonic
-  base: Zombified Piglin
+- name: demon
+  blood: demonic
+  base: zombified piglin
   abilities:
-    - Health Boost
-    - Strength
-    - Fire Resistance
+    - health boost
+    - strength
+    - fire resistance
   desc:
     - Blood For the Blood God!
     - Skulls For the Skull Throne!
@@ -13,17 +13,17 @@
     - [health_boost, 99]
     - [strength, 99]
     - [fire_resistance, 99]
-- name: Dhampir
-  blood: Vampiric
-  base: Enderman
+- name: dhampir
+  blood: vampiric
+  base: enderman
   abilities:
-    - Strength
-    - Speed
-    - Flight
-    - Lifesteal
-    - Jump Boost
-    - Night Vision
-    - Health Boost
+    - strength
+    - speed
+    - flight
+    - lifesteal
+    - jump boost
+    - night vision
+    - health boost
   desc:
     - Heal upon dealing damage
     - Drink the blood of your enemies!
@@ -33,22 +33,22 @@
     - [jump_boost, 9]
     - [strength, 99]
     - [night_vision, 99]
-- name: Mermaid
-  base: Dolphin
+- name: mermaid
+  base: dolphin
   abilities:
-    - Water-Breathing
-    - Swim Boost
+    - water-breathing
+    - swim boost
   effects:
     - [water_breathing, 99]
     - [dolphins_grace, 99]
-- name: Wirwulf
-  blood: Lycan
-  base: Vindicator
+- name: wirwulf
+  blood: lycan
+  base: vindicator
   abilities:
-    - Strength
-    - Resistance
-    - Jump Boost
-    - Health Boost
+    - strength
+    - resistance
+    - jump boost
+    - health boost
   desc:
     - Unleash the beast inside!
   effects:

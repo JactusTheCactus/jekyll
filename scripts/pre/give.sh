@@ -1,40 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
-shopt -s expand_aliases
-alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
+yml() {
+	yq \
+		--yaml-fix-merge-anchor-to-spec=true \
+		"$@"
+}
 exec > "logs/pre.log" 2>& 1
 get() {
 	echo "$1" | jq -r ".${2:-}"
 }
 void() {
 	if [[ "$1" = "null" ]]
-		then echo "${2:-N/A}"
+		then echo "${2:-}"
 		else echo "$1"
 	fi
 }
-yq data/data.yml \
-		-p yaml \
-		-o json \
-		| jq -c ".[]" \
-		| while read -r m
-do
-	t="dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(
-		t_="$(echo "$m" | jq -r ".name")"
-		echo "${t_,,}"
-	)/give.mcfunction"
-	echo "give @p minecraft:dragon_breath[custom_name=\"$(
-		g_="$(get "$m" "blood")"
-		void "$(echo "$m" | jq -r ".blood")" "$(echo "$m" | jq -r ".name")"
-	) Blood\",$(
-		g_="$(echo "$m" | jq -c ".desc")"
-		if [[ "$g_" != "null" ]]
-			then echo "lore=$g_,"
-		fi
-	)custom_model_data={$(
-		g_="$(echo "$m" | jq -r ".name")"
-		echo "strings:[${g_,,}]"
-	)},consumable={consume_seconds:0}]" > "dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(
-		t_="$(echo "$m" | jq -r ".name")"
-		echo "${t_,,}"
-	)/give.mcfunction"
+yml data/data.yml -p yaml -o json \
+	| jq -c ".[]" \
+	| while read -r m
+do echo "give @p minecraft:dragon_breath[custom_name=\"$(
+	void "$(get "$m" "blood")" "$(get "$m" "name")" \
+		| perl -pe 's|\b(\w)|\u$1|g'
+) Blood\",lore=$(echo "$m" | jq -c ".desc"),custom_model_data={strings:[$(get "$m" "name")]},consumable={consume_seconds:0}]" \
+	| perl -pe 's|lore=null,||g' \
+	> "dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(get "$m" "name")/give.mcfunction"
 done
