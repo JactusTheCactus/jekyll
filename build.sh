@@ -6,6 +6,9 @@ flag() {
 		do [[ -e ".flags/$f" ]] || return 1
 	done
 }
+yml() {
+	yq --yaml-fix-merge-anchor-to-spec=true "$@"
+}
 find src \( -name "*.json" -o -name "*.mcmeta" \) -delete
 NAME="Project: Jekyll"
 DIRS=(
@@ -17,7 +20,7 @@ DIRS=(
 )
 while read -r m
 	do DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/$(echo "$m" | jq -r ".name")")
-done < <(yq data/data.yml -p yaml -o json | jq -c ".[]")
+done < <(yml data/data.yml -p yaml -o json | jq -c ".[]")
 for i in "${DIRS[@]}"
 	do
 		rm -rf "$i" || :
@@ -32,9 +35,9 @@ script() {
 for i in src/*
 	do cp -r "$i" dist
 done
-find . -name "*.yml" -print0 | while IFS= read -r -d '' f
+while IFS= read -r -d '' f
 	do script ymlToJson "$f"
-done
+done < <(find . -name "*.yml" -print0)
 script pre/give
 script pre/init
 script pre/functions

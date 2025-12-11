@@ -61,10 +61,7 @@ body=$(
 		el li Items that give the powers of monsters
 	)
 	el h2 Monsters
-	el dl $(
-		yml data/data.yml -p yaml -o json \
-			| jq -c .[] \
-			| while read -r i
+	el dl $( while read -r i
 		do
 			el div.monster $(
 				name=$(get "$i" name | cap)
@@ -76,12 +73,11 @@ body=$(
 					then el dd.base Based off of $(el .mob $base)
 				fi
 				el dd.blood $(void $blood $name) Blood
-				el dd.abilities $(el ul $(echo "$abilities" | while read -r ability
+				el dd.abilities $(el ul $( while read -r ability
 					do el li.ability $ability
-				done))
+				done < <(echo "$abilities")))
 			)
-		done
-	)
+	done < <(yml data/data.yml -p yaml -o json | jq -c .[]))
 	el h2 Use
 	el p Currently, as there are no mobs to drop these items, they are given at the start. If they "aren't," $(el code /reload) will clear your inventory / potion effects "&" give the items
 	el h2 Notes
