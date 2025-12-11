@@ -9,13 +9,23 @@ flag() {
 find src \( -name "*.json" -o -name "*.mcmeta" \) -delete
 NAME="Project: Jekyll"
 DIRS=(
-	dist
 	logs
 	logs/pre
 	logs/trees
+	dist
+	"dist/datapacks/$NAME/data/jekyll/function/mob"
 )
+DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/demon")
+DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/dhampir")
+DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/mermaid")
+DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/wirwulf")
+yq data/data.yml -p yaml -o json | jq -c ".[]" | while read -r m
+	do
+		DIRS+=("dist/datapacks/$NAME/data/jekyll/function/mob/$(echo "$m" | jq -r ".name")")
+done
 DOCS=src/main/docs
-LOG=logs/mc.log
+LOG=logs/build.log
+printf '%s\n' "${DIRS[@]}"
 for i in "${DIRS[@]}"
 	do
 		rm -rf "$i" || :
@@ -23,7 +33,6 @@ for i in "${DIRS[@]}"
 done
 find . -name "*.json" -delete
 exec > "$LOG" 2>& 1
-alias yq="yq --yaml-fix-merge-anchor-to-spec=true"
 alias tree="tree -F"
 script() {
 	./scripts/$1.sh "${@:2}"
@@ -31,11 +40,12 @@ script() {
 for i in src/*
 	do cp -r "$i" dist
 done
-script pre/give
-script pre/init
 find . -name "*.yml" -print0 | while IFS= read -r -d '' f
 	do script ymlToJson "$f"
 done
+script pre/give
+script pre/init
+script pre/functions
 find dist -name "*.yml" -delete
 if flag local
 	then

@@ -65,4 +65,15 @@ items:
             items:
               type: string
         required: [slot, item]
+    functions:
+      description: |-
+        > functions?: {id:String, function:String}[]
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          function:
+            type: string
   required: [name]

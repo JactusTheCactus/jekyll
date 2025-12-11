@@ -15,8 +15,8 @@ Project: Jekyll/
 │   │       │   │   └── init.mcfunction
 │   │       │   ├── dhampir/
 │   │       │   │   ├── give.mcfunction
-│   │       │   │   ├── heal.mcfunction
-│   │       │   │   └── init.mcfunction
+│   │       │   │   ├── init.mcfunction
+│   │       │   │   └── lifesteal.mcfunction
 │   │       │   ├── mermaid/
 │   │       │   │   ├── give.mcfunction
 │   │       │   │   └── init.mcfunction
