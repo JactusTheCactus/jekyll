@@ -74,11 +74,16 @@ items:
           - type: string
           - type: integer
         additionalItems: false
-    items:
+    gear:
       description: >-
         [-]
       type: array
       items:
-        type: string
-  required:
-    - name
+        type: object
+        properties:
+          slot:
+            type: string
+          item:
+            type: string
+        required: [slot,item]
+  required: [name]

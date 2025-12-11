@@ -31,6 +31,7 @@ for i in src/*
 	do cp -r "$i" dist
 done
 script pre/give
+script pre/init
 find . -name "*.yml" -print0 | while IFS= read -r -d '' f
 	do script ymlToJson "$f"
 done

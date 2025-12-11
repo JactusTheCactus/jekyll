@@ -12,29 +12,25 @@ void() {
 		else echo "$1"
 	fi
 }
-# yq data/data.yml \
-# 		-p yaml \
-# 		-o json \
-# 		| jq -c ".[]" \
-# 		| while read -r m
-# do
-# 	t="dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(
-# 		t_="$(echo "$m" | jq -r ".name")"
-# 		echo "${t_,,}"
-# 	)/give.mcfunction"
-# 	echo "give @p minecraft:dragon_breath[custom_name=\"$(
-# 		g_="$(get "$m" "blood")"
-# 		void "$(echo "$m" | jq -r ".blood")" "$(echo "$m" | jq -r ".name")"
-# 	) Blood\",$(
-# 		g_="$(echo "$m" | jq -c ".desc")"
-# 		if [[ "$g_" != "null" ]]
-# 			then echo "lore=$g_,"
-# 		fi
-# 	)custom_model_data={$(
-# 		g_="$(echo "$m" | jq -r ".name")"
-# 		echo "strings:[${g_,,}]"
-# 	)},consumable={consume_seconds:0}]" > "dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(
-# 		t_="$(echo "$m" | jq -r ".name")"
-# 		echo "${t_,,}"
-# 	)/give.mcfunction"
-# done
+yq data/data.yml \
+		-p yaml \
+		-o json \
+		| jq -c ".[]" \
+		| while read -r m
+do
+	echo "$(
+		echo "$m" | jq -c ".effects.[]" | while read -r e
+			do echo "effect give @s minecraft:$(echo "$e" | jq -r ".[0]") infinite $(echo "$e" | jq -r ".[-1]") true"
+		done
+		echo "effect give @s minecraft:instant_health 10 99 true"
+		echo "$m" | jq -c ".gear.[]" | while read -r g
+			do echo "item replace entity @p $(echo "$g" | jq -r ".slot") with $(echo "$g" | jq -r ".item")[minecraft:enchantments={binding_curse:1}]"
+		done
+		name="$(echo "$m" | jq -r ".name")"
+		echo "advancement revoke @s only jekyll:$name $name"
+		echo "title @p title \"You are now a $(echo "$name" | perl -pe 's|^(.)(.*)$|\u$1\L$2|g')\""
+	)" > "dist/datapacks/Project: Jekyll/data/jekyll/function/mob/$(echo "$m" \
+		| jq -r ".name" \
+		| perl -pe 's|(.*)|\L$1|g'
+	)/init.mcfunction"
+done

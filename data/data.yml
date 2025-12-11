@@ -33,8 +33,9 @@
     - [jump_boost, 9]
     - [strength, 99]
     - [night_vision, 99]
-  items:
-    - item replace entity @p armor.chest with elytra[minecraft:enchantments={binding_curse:1}]
+  gear:
+    - slot: armor.chest
+      item: elytra
 - name: mermaid
   base: dolphin
   abilities:
