@@ -24,7 +24,16 @@ do
 		done
 		echo "effect give @s minecraft:instant_health 10 99 true"
 		echo "$m" | jq -c ".gear.[]" | while read -r g
-			do echo "item replace entity @p $(echo "$g" | jq -r ".slot") with $(echo "$g" | jq -r ".item")[minecraft:enchantments={binding_curse:1}]"
+			do echo "item replace entity @p $(echo "$g" \
+				| jq -r ".slot"
+			) with $(echo "$g" \
+				| jq -r ".item"
+			)[$(echo "$g" \
+				| jq ".enchantments += [\"minecraft:enchantments={binding_curse:1}\"]" \
+				| jq ".enchantments[]" \
+				| while read -r n
+				do printf "%s," $(echo "$n" | jq -r ".")
+			done | perl -pe 's|,$||')"]
 		done
 		name="$(echo "$m" | jq -r ".name")"
 		echo "advancement revoke @s only jekyll:$name $name"

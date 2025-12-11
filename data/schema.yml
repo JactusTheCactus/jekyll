@@ -2,69 +2,44 @@ type: array
 items:
   properties:
     name:
-      description: >-
+      description: |-
         > name: String
-
         Monster name
       type: string
     blood:
-      description: >-
+      description: |-
         > blood?: String
-
-        Adjective to prefix "Blood"
-        in the in-game item name.
-
+        Adjective to prefix "Blood" in the in-game item name.
         > `${.blood || .name} Blood`
-
-        If <.blood> is omitted,
-        <.name> will be used instead.
+        If <.blood> is omitted, <.name> will be used instead.
       type: string
     base:
-      description: >-
+      description: |-
         > base?: String
-
-        The vanilla MC mob that this
-        monster is based off of.
-
-        If <.base> is omitted,
-        the item will not be dropped by a custom mob,
-        & must be acquired with commands.
+        The vanilla MC mob that this monster is based off of.
+        If <.base> is omitted, the item will not be dropped by a custom mob, & must be acquired with commands.
       type: string
     abilities:
-      description: >-
+      description: |-
         > abilities?: String[]
-
-        The abilities that are granted
-        to the player.
-
-        If <.abilities> is omitted,
-        the item's abilities will not be
-        displayed in-game.
+        The abilities that are granted to the player.
+        If <.abilities> is omitted, the item's abilities will not be displayed in-game.
       type: array
       items:
         type: string
     desc:
-      description: >-
+      description: |-
         > desc?: String[]
-
-        In-game description.
-        Each item is a separate line.
-
-        If <.desc> is omitted,
-        the item simply will not have
-        an in-game description
+        In-game description. Each item is a separate line.
+        If <.desc> is omitted, the item simply will not have an in-game description
       type: array
       items:
         type: string
     effects:
-      description: >-
+      description: |-
         > effects?: [String, Integer][]
-
         Potion Effects IDs + Level
-
-        If <.effects> is omitted,
-        the item will not grant
-        potion effects to the player.
+        If <.effects> is omitted, the item will not grant potion effects to the player.
       type: array
       items:
         type: array
@@ -75,8 +50,8 @@ items:
           - type: integer
         additionalItems: false
     gear:
-      description: >-
-        [-]
+      description: |-
+        > gear?: { slot:String, item:String, enchantments?:String[], }[]
       type: array
       items:
         type: object
@@ -85,5 +60,9 @@ items:
             type: string
           item:
             type: string
-        required: [slot,item]
+          enchantments:
+            type: array
+            items:
+              type: string
+        required: [slot, item]
   required: [name]
